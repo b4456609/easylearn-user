@@ -12,7 +12,7 @@ group 'ntou.cs.bernie.easylearn'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
-mainClassName = 'ntou.bernie.easylearn.image.EasylearnUserAPP'
+mainClassName = 'ntou.bernie.easylearn.EasylearnUserAPP'
 
 project.ext {
     configPath = "$rootProject.projectDir/"
