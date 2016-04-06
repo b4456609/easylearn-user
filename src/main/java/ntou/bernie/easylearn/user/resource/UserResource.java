@@ -83,6 +83,7 @@ public class UserResource {
                 LOGGER.info("user not exist");
                 user.setCreateTime(new DateTime().getMillis());
                 user.setLastUpTime(new DateTime().getMillis());
+                user.getSetting().setVersion(1);
                 userDAO.save(user);
             } else if (user.getSetting().getVersion() == 0) {
                 //old user new login or new device
