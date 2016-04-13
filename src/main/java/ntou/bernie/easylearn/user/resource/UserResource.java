@@ -3,6 +3,7 @@
  */
 package ntou.bernie.easylearn.user.resource;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,12 +49,13 @@ public class UserResource {
 
     @GET
     @Timed
+    @ExceptionMetered
     @Path("/{id}/pack")
     public List<String> getUserPack(@PathParam("id") String userId) {
         if (userId == null)
             throw new WebApplicationException(400);
         List<Folder> folders = userDAO.getByUserId(userId).getFolder();
-        List<String> packIds = new ArrayList<>();
+        List<String> packIds = new ArrayList<String>();
         for (Folder folder : folders) {
             packIds.addAll(folder.getPack());
         }
@@ -63,6 +65,7 @@ public class UserResource {
 
     @POST
     @Timed
+    @ExceptionMetered
     @Path("/sync")
     public Response syncUser(String userJson) {
         LOGGER.debug("Request content", userJson);
