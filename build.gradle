@@ -1,6 +1,7 @@
 plugins {
     id 'java' // or 'groovy' Must be explicitly applied
     id 'com.github.johnrengelman.shadow' version '1.2.3'
+    id "au.com.dius.pact" version "3.2.4"
 }
 
 apply plugin: 'eclipse'
@@ -48,4 +49,31 @@ task wrapper(type: Wrapper) {
 
 run {
     args 'server', configPath + 'dev.yml'
+}
+
+pact {
+
+    serviceProviders {
+
+        // You can define as many as you need, but each must have a unique name
+        easylearnMobile {
+            // All the provider properties are optional, and have sensible defaults (shown below)
+            protocol = 'http'
+            host = '140.121.101.163'
+            port = 7084
+            path = '/'
+
+            // Again, you can define as many consumers for each provider as you need, but each must have a unique name
+            hasPactWith('easylearn-user') {
+
+                // currently supports a file path using file() or a URL using url()
+//                pactFile = url('https://raw.githubusercontent.com/b4456609/easylearn-mobile/master/target/pacts/easylearn-mobile-easylearn-user.json')
+                pactFile = file('pact/a.json')
+
+            }
+
+        }
+
+    }
+
 }
