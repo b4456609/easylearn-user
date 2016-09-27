@@ -31,6 +31,7 @@ dependencies {
 	compile group: 'joda-time', name: 'joda-time', version: jodaTimeVersion
 	compile group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: 4.7
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
