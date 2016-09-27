@@ -6,4 +6,4 @@ WORKDIR /opt/app/
 
 EXPOSE 8080
 
-CMD ["sh", "./run.sh", "${DISCOVERY_IP}"]
+CMD ["sh", "./run.sh", "${DISCOVERY_IP}", "${MONGO_HOST}"]

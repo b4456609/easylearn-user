@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 import soselab.easylearn.factroy.UserFactory;
 import soselab.easylearn.model.Folder;
 import soselab.easylearn.model.User;
+import soselab.easylearn.model.dto.DeleteFolderDTO;
 import soselab.easylearn.repository.UserRepository;
 import soselab.easylearn.service.exception.UserNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by bernie on 2016/9/10.
@@ -87,5 +90,60 @@ public class UserServiceImp implements UserService {
             dbuser.setLastUpTime(nowTime);
             userRepository.save(dbuser);
         }
+    }
+
+    @Override
+    public void addFolder(String userId, Folder folder) {
+        if(userRepository.exists(userId)){
+            User user = userRepository.findOne(userId);
+            user.getFolder().add(folder);
+            userRepository.save(user);
+        }
+        else{
+            new UserNotFoundException();
+        }
+    }
+
+    @Override
+    public void updateFolder(String userId, Folder folder) {
+        if(userRepository.exists(userId)){
+            User user = userRepository.findOne(userId);
+            List<Folder> folders = user.getFolder().stream()
+                    .filter(folder1 -> !folder1.getId().equals(folder.getId()))
+                    .collect(Collectors.toList());
+            folders.add(folder);
+            user.setFolder(folders);
+            userRepository.save(user);
+        }
+        else{
+            new UserNotFoundException();
+        }
+
+    }
+
+    @Override
+    public void deleteFolder(String userId, DeleteFolderDTO deleteFolderDTO) {
+        if(userRepository.exists(userId)){
+            User user = userRepository.findOne(userId);
+            List<Folder> folders = user.getFolder().stream()
+                    .filter(folder1 -> !folder1.getId().equals(deleteFolderDTO.getId()))
+                    .collect(Collectors.toList());
+            user.setFolder(folders);
+            userRepository.save(user);
+        }
+        else{
+            new UserNotFoundException();
+        }
+    }
+
+    @Override
+    public List<Folder> getFolder(String userId) {
+        if (userRepository.exists(userId)) {
+            User user = userRepository.findOne(userId);
+            return user.getFolder();
+        } else {
+            new UserNotFoundException();
+        }
+        return Collections.emptyList();
     }
 }
