@@ -6,4 +6,4 @@ WORKDIR /opt/app/
 
 EXPOSE 8080
 
-CMD ["sh", "./run.sh", "${DISCOVERY_IP}", "${MONGO_HOST}"]
+CMD ["java", "-jar", "user-0.0.1-SNAPSHOT.jar"]
