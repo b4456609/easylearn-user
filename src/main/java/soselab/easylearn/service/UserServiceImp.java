@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import soselab.easylearn.factroy.UserFactory;
 import soselab.easylearn.model.Folder;
 import soselab.easylearn.model.User;
-import soselab.easylearn.model.dto.DeleteFolderDTO;
 import soselab.easylearn.repository.UserRepository;
 import soselab.easylearn.service.exception.UserNotFoundException;
 
@@ -122,11 +121,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void deleteFolder(String userId, DeleteFolderDTO deleteFolderDTO) {
+    public void deleteFolder(String userId, String folderId) {
         if(userRepository.exists(userId)){
             User user = userRepository.findOne(userId);
             List<Folder> folders = user.getFolder().stream()
-                    .filter(folder1 -> !folder1.getId().equals(deleteFolderDTO.getId()))
+                    .filter(folder1 -> !folder1.getId().equals(folderId))
                     .collect(Collectors.toList());
             user.setFolder(folders);
             userRepository.save(user);

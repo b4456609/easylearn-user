@@ -38,13 +38,13 @@ public class FolderController {
         userService.updateFolder(userId, folder);
     }
 
-    @RequestMapping(path = "/folder", method = RequestMethod.DELETE)
-    public void deleteFolder(@RequestBody DeleteFolderDTO deleteFolderDTO, @RequestHeader("user-id") String userId) {
+    @RequestMapping(path = "/folder/{id}", method = RequestMethod.DELETE)
+    public void deleteFolder(@PathVariable String id, @RequestHeader("user-id") String userId) {
 
         LOGGER.info(userId);
-        LOGGER.info(deleteFolderDTO.toString());
+        LOGGER.info(id);
 
-        userService.deleteFolder(userId, deleteFolderDTO);
+        userService.deleteFolder(userId, id);
     }
 
     @RequestMapping(path = "/folder", method = RequestMethod.GET)

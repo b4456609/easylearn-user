@@ -1,7 +1,6 @@
 package soselab.easylearn.service;
 
 import soselab.easylearn.model.Folder;
-import soselab.easylearn.model.dto.DeleteFolderDTO;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface UserService {
 
     void updateFolder(String userId, Folder folder);
 
-    void deleteFolder(String userId, DeleteFolderDTO deleteFolderDTO);
+    void deleteFolder(String userId, String folderId);
 
     List<Folder> getFolder(String userId);
 }
