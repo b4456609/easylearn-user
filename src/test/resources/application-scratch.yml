@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: easylearn-user
+  data:
+    mongodb:
+      database: user
+      host: localhost

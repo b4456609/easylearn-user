@@ -15,7 +15,7 @@ import java.util.UUID;
 public class UserFactory {
     public User createUser(String name, String id) {
         User user = new User(id, name);
-        Folder folder = new Folder(UUID.randomUUID().toString(), "ALL", Collections.EMPTY_LIST);
+        Folder folder = new Folder("all", "全部懶人包", Collections.EMPTY_LIST);
         user.setFolder(Arrays.asList(folder));
         return user;
     }
