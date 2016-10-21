@@ -12,7 +12,6 @@ import soselab.easylearn.repository.UserRepository;
 import soselab.easylearn.service.exception.UserNotFoundException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,9 @@ public class UserServiceImp implements UserService {
     @Override
     public List<String> getUserPack(String userId) {
         User user = userRepository.findOne(userId);
-        if (user == null) new UserNotFoundException();
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
 
         List<Folder> folders = user.getFolder();
         List<String> packIds = new ArrayList<String>();
@@ -99,7 +100,7 @@ public class UserServiceImp implements UserService {
             userRepository.save(user);
         }
         else{
-            new UserNotFoundException();
+            throw new UserNotFoundException();
         }
     }
 
@@ -115,7 +116,7 @@ public class UserServiceImp implements UserService {
             userRepository.save(user);
         }
         else{
-            new UserNotFoundException();
+            throw new UserNotFoundException();
         }
 
     }
@@ -131,7 +132,7 @@ public class UserServiceImp implements UserService {
             userRepository.save(user);
         }
         else{
-            new UserNotFoundException();
+            throw new UserNotFoundException();
         }
     }
 
@@ -141,8 +142,7 @@ public class UserServiceImp implements UserService {
             User user = userRepository.findOne(userId);
             return user.getFolder();
         } else {
-            new UserNotFoundException();
+            throw new UserNotFoundException();
         }
-        return Collections.emptyList();
     }
 }
