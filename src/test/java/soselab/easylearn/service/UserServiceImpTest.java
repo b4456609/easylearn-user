@@ -13,6 +13,7 @@ import soselab.easylearn.model.User;
 import soselab.easylearn.repository.UserRepository;
 import soselab.easylearn.service.exception.UserNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,24 +76,74 @@ public class UserServiceImpTest {
     }
 
 
+    @Test(expected = UserNotFoundException.class)
+    public void addFolder_noSuchUser_UserNotFoundException() throws Exception {
+        given(this.userRepository.exists("id"))
+                .willReturn(false);
+        userService.addFolder("id", null);
+    }
+
     @Test
-    public void addFolder() throws Exception {
+    public void addFolder_addFolderToUser_addFolderToUser() throws Exception {
+        Folder folder = new Folder("id", "name", Arrays.asList("asdfasdf", "2", "3"));
+        Folder folder1 = new Folder("id1", "name1", Arrays.asList("asdfasdf1", "21", "31"));
+        User user = new User("id", "name", new ArrayList<Folder>(Arrays.asList(folder)), null);
+
+        given(this.userRepository.exists("id"))
+                .willReturn(true);
+        given(this.userRepository.findOne("id"))
+                .willReturn(user);
+
+        userService.addFolder("id", folder1);
+        user.getFolder().add(folder1);
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    public void updateFolder_updateUserFolder_saveNewUser() throws Exception {
+        Folder folder = new Folder("id", "name", Arrays.asList("asdfasdf", "2", "3"));
+        Folder folder1 = new Folder("id", "name1", Arrays.asList("asdfasdf1", "21", "31"));
+        User user = new User("id", "name", new ArrayList<Folder>(Arrays.asList(folder)), null);
+        User expect = new User("id", "name", new ArrayList<Folder>(Arrays.asList(folder1)), null);
+
+        given(this.userRepository.exists("id"))
+                .willReturn(true);
+        given(this.userRepository.findOne("id"))
+                .willReturn(user);
+
+        userService.updateFolder("id", folder1);
+        verify(userRepository).save(expect);
+    }
+
+    @Test
+    public void deleteFolder_deleteUserFolder_saveDeleteFolderUser() throws Exception {
+        Folder folder = new Folder("id", "name", Arrays.asList("asdfasdf", "2", "3"));
+        Folder folder1 = new Folder("id1", "name1", Arrays.asList("asdfasdf1", "21", "31"));
+        User user = new User("id", "name", new ArrayList<Folder>(Arrays.asList(folder, folder1)), null);
+        User expect = new User("id", "name", new ArrayList<Folder>(Arrays.asList(folder1)), null);
+
+        given(this.userRepository.exists("id"))
+                .willReturn(true);
+        given(this.userRepository.findOne("id"))
+                .willReturn(user);
+
+        userService.deleteFolder("id", "id");
+        verify(userRepository).save(expect);
 
     }
 
     @Test
-    public void updateFolder() throws Exception {
+    public void getFolder_getUserFolder_returnListOfFolder() throws Exception {
+        Folder folder = new Folder("id", "name", Arrays.asList("asdfasdf", "2", "3"));
+        Folder folder1 = new Folder("id1", "name1", Arrays.asList("asdfasdf1", "21", "31"));
+        User user = new User("id", "name", new ArrayList<Folder>(Arrays.asList(folder, folder1)), null);
 
-    }
+        given(this.userRepository.exists("id"))
+                .willReturn(true);
+        given(this.userRepository.findOne("id"))
+                .willReturn(user);
 
-    @Test
-    public void deleteFolder() throws Exception {
-
-    }
-
-    @Test
-    public void getFolder() throws Exception {
-
+        assertThat(userService.getFolder("id")).contains(folder, folder1);
     }
 
 }

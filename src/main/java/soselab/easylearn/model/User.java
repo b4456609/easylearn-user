@@ -35,6 +35,33 @@ public class User {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (createTime != user.createTime) return false;
+        if (lastUpTime != user.lastUpTime) return false;
+        if (!id.equals(user.id)) return false;
+        if (!name.equals(user.name)) return false;
+        if (!folder.equals(user.folder)) return false;
+        return bookmark != null ? bookmark.equals(user.bookmark) : user.bookmark == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (int) (createTime ^ (createTime >>> 32));
+        result = 31 * result + (int) (lastUpTime ^ (lastUpTime >>> 32));
+        result = 31 * result + folder.hashCode();
+        result = 31 * result + (bookmark != null ? bookmark.hashCode() : 0);
+        return result;
+    }
+
     public String getId() {
         return id;
     }
