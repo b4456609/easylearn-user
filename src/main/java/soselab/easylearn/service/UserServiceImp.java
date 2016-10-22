@@ -94,19 +94,18 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void addFolder(String userId, Folder folder) {
-        if(userRepository.exists(userId)){
+        if (userRepository.exists(userId)) {
             User user = userRepository.findOne(userId);
             user.getFolder().add(folder);
             userRepository.save(user);
-        }
-        else{
+        } else {
             throw new UserNotFoundException();
         }
     }
 
     @Override
     public void updateFolder(String userId, Folder folder) {
-        if(userRepository.exists(userId)){
+        if (userRepository.exists(userId)) {
             User user = userRepository.findOne(userId);
             List<Folder> folders = user.getFolder().stream()
                     .filter(folder1 -> !folder1.getId().equals(folder.getId()))
@@ -114,8 +113,7 @@ public class UserServiceImp implements UserService {
             folders.add(folder);
             user.setFolder(folders);
             userRepository.save(user);
-        }
-        else{
+        } else {
             throw new UserNotFoundException();
         }
 
@@ -123,15 +121,14 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void deleteFolder(String userId, String folderId) {
-        if(userRepository.exists(userId)){
+        if (userRepository.exists(userId)) {
             User user = userRepository.findOne(userId);
             List<Folder> folders = user.getFolder().stream()
                     .filter(folder1 -> !folder1.getId().equals(folderId))
                     .collect(Collectors.toList());
             user.setFolder(folders);
             userRepository.save(user);
-        }
-        else{
+        } else {
             throw new UserNotFoundException();
         }
     }
