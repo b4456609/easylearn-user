@@ -11,16 +11,11 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User, String> {
 
     @Override
-    public List<User> findAll();
+    List<User> findAll();
 
     @Override
     boolean exists(String id);
 
     @Override
-    User save(User entity);
-
-    @Override
     User findOne(String s);
-
-
 }

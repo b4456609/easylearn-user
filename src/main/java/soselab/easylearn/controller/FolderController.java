@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import soselab.easylearn.model.Folder;
-import soselab.easylearn.model.dto.DeleteFolderDTO;
 import soselab.easylearn.service.UserService;
 
 import java.util.List;
