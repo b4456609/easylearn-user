@@ -23,8 +23,8 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(path = "/{userId}/pack", method = RequestMethod.GET)
-    public List<String> getUserPack(@PathVariable String userId) {
+    @RequestMapping(path = "/pack", method = RequestMethod.GET)
+    public List<String> getUserPack(@RequestHeader("user-id") String userId) {
         return userService.getUserPack(userId);
     }
 

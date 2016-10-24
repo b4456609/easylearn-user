@@ -1,17 +1,12 @@
 package soselab.easylearn.model.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.*;
-import org.junit.runner.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.autoconfigure.json.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.json.*;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.json.JacksonTester;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserDTOTest {
 

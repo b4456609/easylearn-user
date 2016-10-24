@@ -1,15 +1,12 @@
 package soselab.easylearn.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.data.annotation.Id;
-import soselab.easylearn.model.deserializer.UserDeserializer;
 
 import java.util.List;
 
 /**
  * Created by bernie on 2016/9/10.
  */
-@JsonDeserialize(using = UserDeserializer.class)
 public class User {
     @Id
     private String id;

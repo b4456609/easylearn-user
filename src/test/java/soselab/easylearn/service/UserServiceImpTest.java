@@ -1,6 +1,5 @@
 package soselab.easylearn.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +32,6 @@ public class UserServiceImpTest {
 
     @MockBean
     UserRepository userRepository;
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
 
     @Test(expected = UserNotFoundException.class)
     public void getUserPack_noSuchUser_UserNotFoundException() throws Exception {
