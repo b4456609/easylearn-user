@@ -20,4 +20,6 @@ public interface UserService {
     void deleteFolder(String userId, String folderId);
 
     List<Folder> getFolder(String userId);
+
+    void deletePackInFolder(String userId, String id);
 }

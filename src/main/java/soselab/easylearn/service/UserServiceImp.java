@@ -145,4 +145,23 @@ public class UserServiceImp implements UserService {
             throw new UserNotFoundException();
         }
     }
+
+    @Override
+    public void deletePackInFolder(String userId, String id) {
+        if (userRepository.exists(userId)) {
+            User user = userRepository.findOne(userId);
+            List<Folder> folders = user
+                    .getFolder()
+                    .stream()
+                    .map(f -> {
+                        f.getPack().remove(id);
+                        return f;
+                    })
+                    .collect(Collectors.toList());
+            user.setFolder(folders);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
 }

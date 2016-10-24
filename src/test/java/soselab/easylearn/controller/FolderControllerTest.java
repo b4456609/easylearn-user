@@ -120,4 +120,23 @@ public class FolderControllerTest {
         JSONArray jsonArray = new JSONArray(response.getBody());
         assertThat(jsonArray.length()).isEqualTo(2);
     }
+
+    @Test
+    public void deletePackInFolder_RemovePack_remove() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("user-id", "id");
+        HttpEntity entity = new HttpEntity(headers);
+        ResponseEntity<String> response = this.restTemplate.exchange("/folder/pack/packadf", HttpMethod.DELETE, entity, String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(userRepository.findOne("id").getFolder());
+        assertThat(userRepository.findOne("id").getFolder()
+                .stream()
+                .filter(i -> i.getId().equals("folderid"))
+                .findFirst()
+                .get()
+                .getPack())
+                .doesNotContain("packadf")
+                .contains("padsfkwerowierp");
+    }
 }
