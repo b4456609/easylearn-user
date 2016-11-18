@@ -5,7 +5,7 @@ import soselab.easylearn.model.Folder;
 import soselab.easylearn.model.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by bernie on 2016/9/13.
@@ -15,7 +15,7 @@ public class UserFactory {
     public User createUser(String name, String id) {
         User user = new User(id, name);
         Folder folder = new Folder("all", "全部懶人包", new ArrayList<String>());
-        user.setFolder(new ArrayList<>(Arrays.asList(folder)));
+        user.setFolder(new ArrayList<>(Collections.singletonList(folder)));
         return user;
     }
 }
