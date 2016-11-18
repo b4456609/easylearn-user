@@ -4,11 +4,13 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 import soselab.easylearn.factroy.UserFactory;
 import soselab.easylearn.model.Folder;
 import soselab.easylearn.model.User;
 import soselab.easylearn.repository.UserRepository;
 
+@Component
 public class DatabaseTestData implements CommandLineRunner {
 
     @Value("${easylearn.isTest}")
