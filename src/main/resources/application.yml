@@ -4,7 +4,7 @@ spring:
   data:
     mongodb:
       database: user
-      host: ${EASYLEARN_DB_HOST:userdb}
+      host: ${EASYLEARN_BD_HOST:userdb}
 
 easylearn:
   isTest: ${EASYLEARN_TEST:false}
