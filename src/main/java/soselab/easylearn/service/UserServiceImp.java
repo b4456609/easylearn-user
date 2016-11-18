@@ -11,7 +11,6 @@ import soselab.easylearn.model.User;
 import soselab.easylearn.repository.UserRepository;
 import soselab.easylearn.service.exception.UserNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,11 +36,13 @@ public class UserServiceImp implements UserService {
             throw new UserNotFoundException();
         }
 
-        List<Folder> folders = user.getFolder();
-        List<String> packIds = new ArrayList<String>();
-        for (Folder folder : folders) {
-            packIds.addAll(folder.getPack());
-        }
+        List<String> packIds = user.getFolder().stream()
+                .map(Folder::getPack)
+                .flatMap(List::stream)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+
         return packIds;
     }
 
